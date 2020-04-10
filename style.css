@@ -294,3 +294,60 @@ li {
     background-size: cover;
   }
 }
+
+.details {
+  background: #fff;
+  margin: 10px 0;
+  display: flex;
+}
+
+.details__img {
+  height: 400px;
+  margin: 20px;
+}
+
+.details__content {
+  text-align: justify;
+}
+
+.details__text {
+  margin: 0 20px 10px;
+}
+
+.details__content {
+  margin-bottom: 20px;
+}
+
+.details__content ul li {
+  padding: 12px 0 12px 40px;
+  list-style: none;
+  background-image: url("./gambar/icons/hashtag.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 22px;
+  font-size: 16pt;
+}
+
+.details__content ol li {
+  text-indent: 12px;
+  margin-left: 24px;
+  list-style-position: outside;
+  list-style: decimal;
+  font-size: 16pt;
+}
+
+p {
+  margin: 0 10px 10px 0;
+}
+
+.details__title {
+  margin: 20px 0;
+  font-size: 26pt;
+}
+
+.details__1 {
+  flex: 1;
+}
+.details__2 {
+  flex: 1;
+}

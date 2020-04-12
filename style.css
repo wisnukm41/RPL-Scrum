@@ -436,3 +436,12 @@ p {
 .nutrition__child {
   flex: 1;
 }
+
+.about {
+  width: 99%;
+  margin : 10px;
+  position: relative;
+  height: 850px;
+  padding-top : 20px;
+  background : #FAFAFA;
+}

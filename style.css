@@ -439,9 +439,13 @@ p {
 
 .about {
   width: 99%;
-  margin : 10px;
-  position: relative;
-  height: 850px;
-  padding-top : 20px;
-  background : #FAFAFA;
+  margin: 10px;
+  height: 75vh;
+  padding-top: 20px;
+  background: #fafafa;
+}
+
+.about p {
+  padding: 0 12%;
+  padding-top: 30px;
 }

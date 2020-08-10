@@ -1,3 +1,9 @@
+<?php 
+  include './config/function.php';
+  isNotLoggedIn();
+  $stok = getStok();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +53,7 @@
               <a href="menu.php" class="btn btn-warning">Kembali</a>
             </div>
             <div class="card-body">
-            <form action="#" method="post">
+            <form action="./action/create_menu.php" method="post">
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="nama">Nama <sup>*</sup></label>
@@ -70,7 +76,10 @@
                           <tr>
                             <td>
                             <select class="form-control" name='bahan_baku[]'>
-                              <option value="1">Daging</option>
+                            <?php 
+                            while($row = $stok->fetch_object()): ?>
+                            <option value="<?=$row->id?>"><?= $row->nama_stok ?></option>
+                            <?php endwhile; ?>
                             </select>
                             </td>
                             <td>
@@ -95,7 +104,11 @@
             <tr>
             <td>
               <select class="form-control" name='bahan_baku[]'>
-                <option value="1">Daging</option>
+                <?php 
+                mysqli_data_seek($stok, 0);
+                while($row = $stok->fetch_object()): ?>
+                <option value="<?=$row->id?>"><?= $row->nama_stok ?></option>
+                <?php endwhile; ?>
               </select>
               </td>
               <td>
@@ -103,6 +116,7 @@
               </td>
               <td><a href="#" class="btn btn-danger deleteProduct">-</a></td>
             </tr>
+               
             </tbody>
           </table>
         </div>

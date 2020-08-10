@@ -1,3 +1,20 @@
+<?php 
+  include './config/function.php';
+  isNotLoggedIn();
+  $data = getOneMenu($_GET['id']);
+
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+
+  $data = $data->fetch_object();
+
+  $detail = getDetailMenu($_GET['id']);
+
+  $stok = getStok();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,15 +64,16 @@
               <a href="menu.php" class="btn btn-warning">Kembali</a>
             </div>
             <div class="card-body">
-            <form action="#" method="post">
+            <form action="./action/update_menu.php" method="post">
+                <input type="hidden" name="id_menu" value=<?= $data->id ?>>
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="nama">Nama <sup>*</sup></label>
-                        <input type="text" class="form-control" id='nama' name="nama" required>
+                        <input type="text" class="form-control" id='nama' name="nama" required value="<?= $data->nama_soto ?>">
                     </div>
                     <div class="form-group col-12">
                         <label for="harga">Harga <sup>*</sup></label>
-                        <input type="number" class="form-control" id='harga' name="harga" required>
+                        <input type="number" class="form-control" id='harga' name="harga" required value="<?= $data->harga_soto ?>">
                     </div>
                     <div class="form-group col-12">
                       <table class="table table-bordered">
@@ -67,17 +85,32 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <?php  
+                          $i = 0;
+                          while($row = $detail->fetch_object()):
+                          ?>
                           <tr>
                             <td>
                             <select class="form-control" name='bahan_baku[]'>
-                              <option value="1">Daging</option>
+                              <?php 
+                              mysqli_data_seek($stok, 0);
+                              while($second = $stok->fetch_object()): ?>
+                              <option value="<?=$second->id?>" <?= $second->id == $row->id ? "selected" : "" ?>><?= $second->nama_stok ?></option>
+                              <?php endwhile; ?>
                             </select>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="qty[]" required>
+                              <input type="number" class="form-control" name="qty[]" required value="<?= $row->jumlah ?>">
                             </td>
-                            <td></td>
+                            <td>
+                              <?php if($i != 0) : ?>
+                                <a href="#" class="btn btn-danger deleteProduct">-</a>
+                              <?php endif ?>
+                            </td>
                           </tr>
+                          <?php
+                          $i++;
+                          endwhile; ?>
                         </tbody>
                       </table>
                     </div>
@@ -95,7 +128,11 @@
             <tr>
             <td>
               <select class="form-control" name='bahan_baku[]'>
-                <option value="1">Daging</option>
+                <?php 
+                mysqli_data_seek($stok, 0);
+                while($row = $stok->fetch_object()): ?>
+                <option value="<?=$row->id?>"><?= $row->nama_stok ?></option>
+                <?php endwhile; ?>
               </select>
               </td>
               <td>

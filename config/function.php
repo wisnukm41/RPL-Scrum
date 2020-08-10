@@ -141,7 +141,14 @@
   function getDetailMenu($id)
   {
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT stok_bahan_baku.nama_stok,detail_menu_dan_stok.jumlah from detail_menu_dan_stok LEFT JOIN stok_bahan_baku ON stok_bahan_baku.id=detail_menu_dan_stok.id_stok where detail_menu_dan_stok.id_menu='$id'";
+    $sql = "SELECT stok_bahan_baku.nama_stok,detail_menu_dan_stok.jumlah,stok_bahan_baku.id from detail_menu_dan_stok LEFT JOIN stok_bahan_baku ON stok_bahan_baku.id=detail_menu_dan_stok.id_stok where detail_menu_dan_stok.id_menu='$id'";
+    return $mysqli->query($sql);
+  }
+
+  function getStok()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from stok_bahan_baku";
     return $mysqli->query($sql);
   }
 

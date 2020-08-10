@@ -1,14 +1,21 @@
 <?php 
-  // include './config/connection.php';
-  // include './config/function.php';
-  // isNotLoggedIn();
-  // $data = getDetailKeuangan($_GET['id']);
-  // $obat = getDetailPenjualanObat($_GET['id']);
+  include './config/function.php';
+  isNotLoggedIn();
 
-  // if($data->num_rows < 1){
-  //   header("Location:NotFound404.php");
-  // }
+  // $pegawai = getInfoPegawai($_GET['id']);
+  // // if($pegawai->num_rows < 1){
+  // //   header("Location:NotFound404.php");
+  // // }
+
+  // $pegawai = $pegawai->fetch_object();
+
+  $id = getIdPegawai($_GET['id']);
+  $id = $id->fetch_object();
+  $pegawai = getInfoPegawai($id->id);
+  $pegawai = $pegawai->fetch_object();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,28 +65,28 @@
               <a href="index.php" class="btn btn-danger">Kembali</a>
             </div>
             <div class="card-body">
-              <h6 class="font-weight-bold">Detail Menu</h6>
+              <h6 class="font-weight-bold">Detail Pegawai</h6>
               <table class="table table-bordered">
                 <tr>
                   <td rowspan=5 class='photo_td'><img src="./img/obat/photo.jpg" alt="photo" class='photo_obat'></td>
                   <td>Nama : </td>
-                  <td>Yayat</td>
+                  <td><?= $pegawai->nama ?></td>
                 </tr>
                 <tr>
                   <td>Jenis Kelamin</td>
-                  <td>Laki - Laki</td>
+                  <td><?= $pegawai->jenis_kelamin ?></td>
                 </tr>
                 <tr>
                   <td>Kontak</td>
-                  <td>39123904892</td>
+                  <td><?= $pegawai->kontak ?></td>
                 </tr>
                 <tr>
                   <td>Alamat</td>
-                  <td>Jl. Kampung Durian Runtuh, Sebelah Tok Dalang</td>
+                  <td><td><?= $pegawai->alamat ?></td></td>
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>yayat@randomize.com</td>
+                  <td><td><?= $pegawai->email ?></td></td>
                 </tr>
               </table>
               <h6>History Gaji</h6>

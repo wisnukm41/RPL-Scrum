@@ -98,8 +98,8 @@
                       <td><?= $row->nama ?></td>
                       <td><?= $row->jenis_kelamin ?></td>
                       <td>
-                        <a href="<?= "./detail_menu.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
-                        <a href="<?= "./ubah_menu.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
+                        <a href="<?= "./detail_pegawai.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
+                        <a href="<?= "./ubah_pegawai.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
                       </td>
                     <?php endwhile; ?>
                   </tbody>

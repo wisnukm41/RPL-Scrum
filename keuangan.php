@@ -67,7 +67,7 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pendapatan Total</div>
                       <!-- <div class="h5 mb-0 font-weight-bold <?php//= getMonthly()->inTotal >= getMonthly()->outTotal ? "text-success" : "text-danger" ?>">Rp. <?php//= number_format(getTotalIncome()->inTotal - getTotalIncome()->outTotal) ?></div> -->
-                      <div class="h5 mb-0 font-weight-bold"><?php echo"Rp $Pendapatan" ?></div>
+                      <div class="h5 mb-0 font-weight-bold">Rp <?= number_format($Pendapatan)?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-dollar-sign fa-2x text-gray-300" aria-hidden="true"></i>

@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php 
+  include './config/function.php';
+  isNotLoggedIn();
+  $keuangan = getDataKeuangan();
+
+  $Pendapatan = 0;
+  while($row = $keuangan->fetch_object()){
+    if($row->jenis == "in"){
+      $Pendapatan += intval($row->jumlah);
+    }
+    else
+      $Pendapatan -= intval($row->jumlah);
+  }
+
+?>
+
 <head>
 
   <meta charset="utf-8">
@@ -9,7 +25,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Keuangan || Apotek</title>
+  <title>Keuangan</title>
 
   <?php include './head-import.php' ?>
 </head>
@@ -51,7 +67,7 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pendapatan Total</div>
                       <!-- <div class="h5 mb-0 font-weight-bold <?php//= getMonthly()->inTotal >= getMonthly()->outTotal ? "text-success" : "text-danger" ?>">Rp. <?php//= number_format(getTotalIncome()->inTotal - getTotalIncome()->outTotal) ?></div> -->
-                      <div class="h5 mb-0 font-weight-bold">Rp.300.000</div>
+                      <div class="h5 mb-0 font-weight-bold"><?php echo"Rp $Pendapatan" ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-dollar-sign fa-2x text-gray-300" aria-hidden="true"></i>
@@ -86,12 +102,24 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                       <td>20 / 9 / 2020</td>
                       <td>In</td>
                       <td>Rp. 300.000</td>
                       <td>Penjualan</td>
+                    </tr> -->
+
+                    <?php
+                    mysqli_data_seek($keuangan,0); 
+                    while($row = $keuangan->fetch_object()): ?>
+                    <tr>
+                      <td><?= $row->tgl ?></td>
+                      <td><?= $row->jenis ?></td>
+                      <td><?= number_format($row->jumlah) ?></td>
+                      <td><?= $row->deskripsi ?></td>
                     </tr>
+                    <?php endwhile; ?>
+
                   </tbody>
                 </table>
               </div>

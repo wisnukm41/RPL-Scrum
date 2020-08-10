@@ -235,6 +235,13 @@
     return $mysqli->query($sql);
   }
 
+    function getDataKeuangan(){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from keuangan";
+    return $mysqli->query($sql);
+  }
+
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

@@ -4,6 +4,7 @@
 <?php 
   include './config/function.php';
   isNotLoggedIn();
+  $karyawan = getDataKaryawan();
 ?>
 
 <head>
@@ -81,7 +82,7 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                       <td>312312</td>
                       <td>Yayat</td>
                       <td>Laki - Laki</td>
@@ -89,7 +90,18 @@
                       <td>
                         <a href="#" class="btn btn-danger">Detail</a>
                       </td>
-                    </tr>
+                    </tr> -->
+
+                    <?php while($row = $karyawan->fetch_object()): ?>
+                    <tr>
+                      <td><?= $row->id ?></td>
+                      <td><?= $row->nama ?></td>
+                      <td><?= $row->jenis_kelamin ?></td>
+                      <td>
+                        <a href="<?= "./detail_menu.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
+                        <a href="<?= "./ubah_menu.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
+                      </td>
+                    <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

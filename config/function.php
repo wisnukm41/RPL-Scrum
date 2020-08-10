@@ -200,6 +200,27 @@
     return $mysqli->query($sql);
   }
 
+  function getPenggajian()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.id,a.tgl,a.jumlah from keuangan as a WHERE deskripsi LIKE '%gaji%' AND jenis='out'";
+    return $mysqli->query($sql);
+  }
+
+  function getOneGaji($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.jumlah,a.tgl FROM keuangan as a WHERE a.id='$id' ";
+    return $mysqli->query($sql);
+  }
+
+  function getDetailGaji($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.jumlah as total,a.tgl,b.jumlah,b.bonus,b.denda,c.nama from keuangan as a INNER JOIN detail_penggajian as b ON a.id = b.id_keuangan LEFT JOIN karyawan as d ON b.id_karyawan=d.id INNER JOIN biodata_pegawai as c ON d.id_biodata=c.id WHERE b.id_keuangan='$id' ";
+    return $mysqli->query($sql);
+  }
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

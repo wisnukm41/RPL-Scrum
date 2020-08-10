@@ -1,7 +1,15 @@
-<?php
+<?php 
   include './config/function.php';
   isNotLoggedIn();
-  $data = getPenggajian();
+  $data = getOneGaji($_GET['id']);
+
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+
+  $data = $data->fetch_object();
+
+  $detail = getDetailGaji($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +22,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Penggajian || Warung Soto</title>
+  <title>Detail Penggajian || Warung Soto</title>
 
   <?php include './head-import.php' ?>
 </head>
@@ -43,54 +51,45 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Penggajian</h1>
+            <h1 class="h3 mb-0 text-gray-800">Detail Penggajian</h1>
           </div>
-          <?php if(isset($_SESSION['message'])): ?>
-          <div class="alert alert-success">
-            <?php
-             echo $_SESSION['message'];
-            unset($_SESSION['message']);
-            ?>
-          </div>
-          <?php endif; ?>
+
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
-              <h6 class="m-0 font-weight-bold text-secondary">Data Penggajian</h6>
-              <a href="tambah_penggajian.php" class="btn btn-primary">Tambah</a>
+              <h6 class="m-0 font-weight-bold text-secondary">Detail Penggajian</h6>
+              <a href="penggajian.php" class="btn btn-danger">Kembali</a>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Jumlah</th>
-                      <th>Tanggal</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Jumlah</th>
-                      <th>Tanggal</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                    <?php while($row = $data->fetch_object()): ?>
-                    <tr>
-                      <td><?= $row->id ?></td>
-                      <td>Rp. <?= number_format($row->jumlah) ?></td>
-                      <td><?= viewDate($row->tgl) ?></td>
-                      <td>
-                        <a href="<?= "detail_penggajian.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
-                      </td>
-                    </tr>
-                    <?php endwhile; ?>
-                  </tbody>
-                </table>
-              </div>
+              <h6 class="font-weight-bold">Detail Penggajian</h6>
+              <table class="table table-bordered">
+                <tr>
+                  <td>Tanggal </td>
+                  <td><?= viewDate($data->tgl) ?></td>
+                </tr>
+                <tr>
+                  <td>Jumlah Total</td>
+                  <td>Rp. <?= number_format($data->jumlah) ?></td>
+                </tr>
+              </table>
+              <h6 class="font-weight-bold">Detail Gaji Pegawai</h6>
+              <table class="table table-bordered">
+                <tr>
+                  <td>Nama Pegawai</td>
+                  <td>Gaji Awal</td>
+                  <td>Bonus</td>
+                  <td>Denda</td>
+                  <td>Gaji Akhir</td>
+                </tr>
+              <?php while($row = $detail->fetch_object()): ?>
+                <tr>
+                  <td><?= $row->nama ?> </td>
+                  <td>Rp. <?= number_format( $row->jumlah) ?> </td>                
+                  <td>Rp. <?= number_format( $row->bonus) ?> </td>
+                  <td>Rp. <?= number_format( $row->denda) ?> </td>
+                  <td>Rp. <?= number_format( $row->jumlah - $row->denda + $row->bonus) ?> </td>                
+                </tr>
+              <?php endwhile; ?>
+              </table>
             </div>
           </div>
 
@@ -101,13 +100,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      <?php include './footer.php' ?>
       <!-- End of Footer -->
 
     </div>

@@ -1,3 +1,9 @@
+<?php 
+  include './config/function.php';
+  isNotLoggedIn();
+  $pegawai = getDataKaryawan();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +53,7 @@
               <a href="penggajian.php" class="btn btn-warning">Kembali</a>
             </div>
             <div class="card-body">
-            <form action="#" method="post">
+            <form action="./action/create_penggajian.php" method="post">
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="date">Tanggal <sup>*</sup></label>
@@ -68,17 +74,19 @@
                           <tr>
                             <td>
                             <select class="form-control" name='pegawai[]'>
-                              <option value="1">Rendi</option>
+                              <?php while($row = $pegawai->fetch_object()): ?>
+                                <option value=<?= $row->id ?>><?= $row->nama ?></option>
+                              <?php endwhile; ?>
                             </select>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="gaji[]" required>
+                              <input type="number" class="form-control" name="gaji[]" required value=0>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="bonus[]" required>
+                              <input type="number" class="form-control" name="bonus[]" required value=0>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="denda[]" required>
+                              <input type="number" class="form-control" name="denda[]" required value=0>
                             </td>
                             <td></td>
                           </tr>
@@ -99,17 +107,21 @@
             <tr>
               <td>
                 <select class="form-control" name='pegawai[]'>
-                  <option value="1">Rendi</option>
+                <?php 
+                  mysqli_data_seek($pegawai,0);
+                  while($row = $pegawai->fetch_object()): ?>
+                  <option value=<?= $row->id ?>><?= $row->nama ?></option>
+                <?php endwhile; ?>
                 </select>
                 </td>
                 <td>
-                  <input type="number" class="form-control" name="gaji[]" required>
+                  <input type="number" class="form-control" name="gaji[]" required value=0>
                 </td>
                 <td>
-                  <input type="number" class="form-control" name="bonus[]" required>
+                  <input type="number" class="form-control" name="bonus[]" required value=0>
                 </td>
                 <td>
-                  <input type="number" class="form-control" name="denda[]" required>
+                  <input type="number" class="form-control" name="denda[]" required value=0>
                 </td>
                 <td><a href="#" class="btn btn-danger deleteProduct">-</a></td>
             </tr>

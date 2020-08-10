@@ -1,13 +1,15 @@
 <?php 
-  // include './config/connection.php';
-  // include './config/function.php';
-  // isNotLoggedIn();
-  // $data = getDetailKeuangan($_GET['id']);
-  // $obat = getDetailPenjualanObat($_GET['id']);
+  include './config/function.php';
+  isNotLoggedIn();
+  $data = getDetailKeluhan($_GET['id']);
 
-  // if($data->num_rows < 1){
-  //   header("Location:NotFound404.php");
-  // }
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+
+  $data = $data->fetch_object();
+  $karyawan = getDataKaryawan();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,52 +51,41 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Detail Penjualan</h1>
+            <h1 class="h3 mb-0 text-gray-800">Detail Keluhan</h1>
           </div>
 
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
-              <h6 class="m-0 font-weight-bold text-secondary">Detail Penjualan</h6>
-              <a href="index.php" class="btn btn-danger">Kembali</a>
+              <h6 class="m-0 font-weight-bold text-secondary">Detail Keluhan</h6>
+              <a href="keluhan.php" class="btn btn-danger">Kembali</a>
             </div>
             <div class="card-body">
-              <table class="table table-bordered">
-  
-                <tr>
-                  <td>Nama Pembeli</td>
-                  <td>Yayat</td>
-                </tr>
-                <tr>
-                  <td>Kontak Pembeli</td>
-                  <td>23934</td>
-                </tr>
-
-              </table>
-              <h6 class="font-weight-bold">Detail Menu</h6>
-              <table class="table table-striped table-bordered">
-                <tr>
-                  <td>Nama Menu</td>
-                  <td>Jumlah</td>
-                  <td>Harga</td>
-                </tr>
-                <?php
-                // $totalPrice = 0;
-                // while ($row = $obat->fetch_object()) : 
-                ?>
-                <tr>
-                  <td>Soto</td>
-                  <td>x2</td>
-                  <td>Rp. 30.000 </td>
-                </tr>
-                <?php 
-                // $totalPrice += $row->total;
-                // endwhile; 
-                ?>
-                <tr>
-                  <td colspan='2' class='font-weight-bold'>Total</td>
-                  <td class='font-weight-bold'>Rp. 30.000</td>
-                </tr>
-              </table>
+              <form action="./action/create_keluhan.php" method="post">
+                <input type="hidden" name="id_keluhan" value=<?= $data->id ?>>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <tr>
+                      <td>Tanggal</td>
+                      <td><?= viewDate($data->tgl) ?></td>
+                    </tr>
+                    <tr>
+                      <td>Deskripsi</td>
+                      <td><?= $data->deskripsi ?></td>
+                    </tr>
+                    <tr>
+                      <td>Nama Pegawai</td>
+                      <td>  
+                        <select name="pegawai" class="form-control">
+                          <?php while($row = $karyawan->fetch_object()): ?>
+                          <option value="<?= $row->id ?>" <?= $row->id === $data->id_karyawan ? "selected" : "" ?>><?= $row->nama ?></option>
+                          <?php endwhile; ?>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <button type="submit" class='btn btn-primary'>Simpan</button>
+              </form>
             </div>
           </div>
 

@@ -1,3 +1,8 @@
+<?php
+  include './config/function.php';
+  isNotLoggedIn();
+  $data = getKeluhan();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +64,6 @@
                     <tr>
                       <th>Tanggal</th>
                       <th>ID</th>
-                      <th>Denda</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -67,19 +71,19 @@
                     <tr>
                       <th>Tanggal</th>
                       <th>ID</th>
-                      <th>Total</th>
                       <th>Aksi</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                  <?php while($row=$data->fetch_object()):?>
                     <tr>
-                      <td>8 / 9 / 2020</td>
-                      <td>312312</td>
-                      <td>Rp. 20.000</td>
+                      <td><?= viewDate($row->tgl) ?></td>
+                      <td><?= $row->id ?></td>
                       <td>
-                        <a href="#" class="btn btn-danger">Detail</a>
+                        <a href="<?= "detail_keluhan.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
                       </td>
                     </tr>
+                  <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

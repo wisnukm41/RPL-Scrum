@@ -172,6 +172,26 @@
     return $mysqli->query($sql);
   }
   
+  function getKeluhan()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * FROM keluhan";
+    return $mysqli->query($sql);
+  }
+
+  function getDetailKeluhan($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * FROM keluhan where id='$id'";
+    return $mysqli->query($sql);
+  }
+
+  function getDataKaryawan()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.id,b.nama FROM karyawan as a LEFT JOIN biodata_pegawai as b ON a.id_biodata = b.id";
+    return $mysqli->query($sql);
+  }
 
   function viewDate($date){
     $date = explode('-',$date);

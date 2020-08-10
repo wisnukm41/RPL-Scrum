@@ -1,3 +1,10 @@
+<?php
+  include './config/function.php';
+  isNotLoggedIn();
+  $menu = getMenu();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Order || Warung Soto</title>
+  <title>Order Menu || Warung Soto</title>
 
   <?php include './head-import.php' ?>
 </head>
@@ -44,6 +51,14 @@
             ?>
           </div>
           <?php endif; ?>
+          <?php if(isset($_SESSION['error'])): ?>
+          <div class="alert alert-danger">
+            <?php
+             echo $_SESSION['error'];
+            unset($_SESSION['error']);
+            ?>
+          </div>
+          <?php endif; ?>
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
               <h6 class="m-0 font-weight-bold text-secondary">Data Menu</h6>
@@ -56,7 +71,7 @@
                   <img class="img-fluid rounded mb-2" src="./img/soto-3.jpg">
                 </div>
                 <div class="col-md-9 col-12 table-responsive">
-                <form action="#" method="post">
+                <form action="order.php" method="post">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -66,13 +81,19 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php while($row = $menu->fetch_object()): ?>
                       <tr>
-                        <td>Soto Lamongan</td>
-                        <td>Rp. 30.000</td>
+                        <td><?= $row->nama_soto ?></td>
+                        <td>Rp. <?= number_format($row->harga_soto) ?></td>
                         <td>
-                          <input type="number" class="form-control text-center w-50" name="qty[]" id="" value=4>
+                          <input type="hidden" name="nama[]" value="<?= $row->nama_soto ?>">
+                          <input type="hidden" name="harga[]" value="<?= $row->harga_soto ?>">
+                          <input type="hidden" name="id_menu[]" value="<?= $row->id ?>">
+                          <input type="number" class="form-control text-center w-50 d-inline" name="qty[]" id="" value=0>
+                          <div class="d-inline ml-1 py-1 px-3 bg-success text-white">Ada</div>
                         </td>
                       </tr>
+                      <?php endwhile; ?>
                     </tbody>
                   </table>
                   <div class="d-sm-flex align-items-center justify-content-between">

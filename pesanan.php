@@ -1,3 +1,7 @@
+<?php
+  include './config/function.php';
+  $data = getOrders();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,7 +58,7 @@
                   <thead>
                     <tr>
                       <th>Kontak Pembeli</th>
-                      <th>Tangal</th>
+                      <th>Tanggal</th>
                       <th>Total</th>
                       <th>Aksi</th>
                     </tr>
@@ -62,21 +66,23 @@
                   <tfoot>
                     <tr>
                       <th>Kontak Pembeli</th>
-                      <th>Tangal</th>
+                      <th>Tanggal</th>
                       <th>Total</th>
                       <th>Aksi</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                    <?php while($row = $data->fetch_object()): ?>
                     <tr>
-                      <td>2131245</td>
-                      <td>20 / 08 / 2020</td>
-                      <td>Rp. 300.000</td>
+                      <td><?= $row->kontak ?></td>
+                      <td><?= viewDate($row->tgl)?></td>
+                      <td>Rp. <?= number_format($row->total_harga) ?></td>
                       <td>
-                        <a href="detail_pesanan.php" class="btn btn-warning">Detail</a>
+                        <a href="<?= "detail_pesanan.php?id=$row->id"?>" class="btn btn-warning">Detail</a>
                         <a href="tambah_keluhan.php" class="btn btn-danger">Keluhan</a>
                       </td>
                     </tr>
+                    <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

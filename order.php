@@ -1,3 +1,11 @@
+<?php
+include './config/function.php';
+isNotLoggedIn();
+  $nama = $_POST['nama'];
+  $harga = $_POST['harga'];
+  $id_menu = $_POST['id_menu'];
+  $qty = $_POST['qty'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,8 +64,8 @@
                   <img class="img-fluid rounded mb-2" src="./img/soto-3.jpg">
                 </div>
                 <div class="col-md-9 col-12 table-responsive">
-                <form action="#" method="post">
-                  <a href="#" class="btn btn-warning mb-2">Kembali</a>
+                  <a href="order_menu.php" class="btn btn-warning mb-2">Kembali</a>
+                <form action="./action/create_penjualan.php" method="post">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -67,27 +75,41 @@
                         <td>Sub Total </td>
                       </tr>
                     </thead>
+                    <tbody>
+                        <?php
+                        $total=0;
+                        for ($i=0; $i < sizeof($qty); $i++) :
+                          if($qty[$i] > 0):
+                            $sub = $harga[$i] * $qty[$i];
+                            $total = $total + $sub;
+                        ?>
+                       <tr>
+                          <td><?= $nama[$i] ?></td>
+                          <td>Rp. <?= number_format($harga[$i]) ?></td>
+                          <input type="hidden" class='harga' value=<?=$harga[$i]?>>
+                          <input type="hidden" name='id_menu[]' value=<?=$id_menu[$i]?>>
+                          <td>
+                            <input type="number" class="form-control text-center w-50 number" name="qty[]" value=<?= $qty[$i] ?>>
+                          </td>
+                          <td class="harga">
+                            Rp. <span><?= number_format($sub) ?></span>
+                            <input type="hidden" class='hidden_price' name="harga[]" value=<?=$sub?>>
+                          </td>
+                        </tr>
+                        <?php
+                        endif;    
+                        endfor;?>
+                    </tbody>
                     <tfoot>
                       <tr class="font-weight-bold">
                         <td colspan=3>Total</td>
-                        <td>Rp. 120.000</td>
+                        <td>Rp. <span id="total"><?= number_format($total) ?></span></td>
+                        <input type="hidden" id="hidden_total" name="total" id="hidden_total" value=<?= $total ?>>
                       </tr>
                     </tfoot>
-                    <tbody>
-                      <tr>
-                        <td>Soto Lamongan</td>
-                        <td>Rp. 30.000</td>
-                        <td>
-                          <input type="number" class="form-control text-center w-50" name="qty[]" id="" value=4>
-                        </td>
-                        <td>
-                          Rp. 120.000
-                        </td>
-                      </tr>
-                    </tbody>
                   </table>
                   <div class="d-sm-flex align-items-center justify-content-between">
-                  <input type="text" class="form-control w-25" placeholder="Kontak Pembeli (Optional)">
+                  <input type="text" class="form-control w-25" name="kontak" placeholder="Kontak Pembeli (Optional)">
                   <button type="submit" class="btn btn-success">Konfirmasi</button>  
                   </div>
                 </form>
@@ -145,7 +167,32 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script>
+       $(document).ready(function() {
 
+        $("body").on('change','.number', dataChange);
+        
+        function dataChange(){
+          var price = $(this).parents('tr').find('.harga').val();
+          var qty = $(this).parents('tr').find('.number').val();
+
+          var nf = Intl.NumberFormat();
+          var n = price*qty
+
+          $(this).parents('tr').find('span').html(nf.format(n));
+          $(this).parents('tr').find('.hidden_price').val(n);
+
+          var total = 0;
+          $(".hidden_price").each(function(){
+            total += (this.value*1);
+          });
+
+          $('#total').html(nf.format(total));
+          $('#hidden_total').val(total);
+          
+        }
+        });
+  </script>
 
 </body>
 

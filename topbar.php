@@ -38,7 +38,7 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="order.php">
+                <a class="dropdown-item" href="order_menu.php">
                   <i class="fa fa-book fa-sm fa-fw mr-2 text-gray-400"></i>
                   Order
                 </a>

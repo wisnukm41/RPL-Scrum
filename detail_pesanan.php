@@ -1,3 +1,18 @@
+<?php
+  include './config/function.php';
+  isNotLoggedIn();
+  $data = getOneOrder($_GET['id']);
+  
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+  
+  $data = $data->fetch_object();
+
+  $detail = getOrderDetail($_GET['id']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

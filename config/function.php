@@ -152,6 +152,27 @@
     return $mysqli->query($sql);
   }
 
+  function getOrders()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.*,c.tgl FROM struk_pembelian AS a LEFT JOIN detail_penjualan AS b ON a.id = b.id_pembeli LEFT JOIN keuangan AS c ON b.id_keuangan = c.id GROUP BY a.id";
+    return $mysqli->query($sql);
+  }
+
+  function getOneOrder($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT a.nama_soto,a.harga_soto,b.jumlah FROM menu AS a LEFT JOIN detail_penjualan AS b ON a.id = b.id_menu LEFT JOIN struk_pembelian AS c ON c.id = b.id_pembeli WHERE c.id='$id'";
+    return $mysqli->query($sql);
+  }
+
+  function getOrderDetail($id){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * FROM struk_pembelian WHERE id='$id'";
+    return $mysqli->query($sql);
+  }
+  
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

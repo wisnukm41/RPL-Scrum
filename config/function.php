@@ -254,15 +254,9 @@
     return $mysqli->query($sql);
   }
 
-  function getDataKeuangan(){
-    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT * from keuangan";
-    return $mysqli->query($sql);
-  }
-
   function getIdPegawai($id){
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT id from karyawan where id_biodata='$id'";
+    $sql = "SELECT * from karyawan where id='$id'";
     return $mysqli->query($sql);
   }
 
@@ -272,7 +266,20 @@
     return $mysqli->query($sql);
   }
 
+  function getGajiPersonal($id){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * FROM (SELECT jumlah,bonus,id_keuangan FROM detail_penggajian WHERE id_karyawan = '$id') AS B NATURAL JOIN (SELECT tgl FROM keuangan  WHERE id=(SELECT id_keuangan FROM   detail_penggajian WHERE id_karyawan ='$id')) AS A";
+    return $mysqli->query($sql);
+  }
+
+  function getKeluhanPersonal($id){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * FROM (SELECT denda FROM detail_penggajian WHERE id_karyawan='$id') AS A NATURAL JOIN (SELECT tgl,id FROM keluhan WHERE id_karyawan = '$id') AS B";
+    return $mysqli->query($sql);
+  }
+
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];
-  }
+  } 

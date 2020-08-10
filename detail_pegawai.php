@@ -11,9 +11,15 @@
 
   $id = getIdPegawai($_GET['id']);
   $id = $id->fetch_object();
-  $pegawai = getInfoPegawai($id->id);
+  $pegawai = getInfoPegawai($id->id_biodata);
   $pegawai = $pegawai->fetch_object();
 
+  $gaji = getGajiPersonal($_GET['id']);
+  $keluhan = getKeluhanPersonal($_GET['id']);
+
+  $foto = "\"./img/pegawai/";
+  $foto .= $pegawai->foto;
+  $foto .= ".jpg\"";
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +74,7 @@
               <h6 class="font-weight-bold">Detail Pegawai</h6>
               <table class="table table-bordered">
                 <tr>
-                  <td rowspan=5 class='photo_td'><img src="./img/obat/photo.jpg" alt="photo" class='photo_obat'></td>
+                  <td rowspan=5 class='photo_td'><img alt="photo" class='foto_karyawan' src= <?= $foto ?>></td>
                   <td>Nama : </td>
                   <td><?= $pegawai->nama ?></td>
                 </tr>
@@ -82,11 +88,11 @@
                 </tr>
                 <tr>
                   <td>Alamat</td>
-                  <td><td><?= $pegawai->alamat ?></td></td>
+                  <td><?= $pegawai->alamat ?></td>
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td><td><?= $pegawai->email ?></td></td>
+                  <td><?= $pegawai->email ?></td>
                 </tr>
               </table>
               <h6>History Gaji</h6>
@@ -108,12 +114,19 @@
                       <th>Aksi</th>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>8 / 9 / 2020</td>
+                      <!-- <td>8 / 9 / 2020</td>
                       <td>Rp. 20.000</td>
                       <td>Rp. 20.000</td>
-                      <td>
-                        <a href="#" class="btn btn-danger">Detail</a>
+                      <td> -->
+                      <?php while($row = $gaji->fetch_object()): ?>
+                      <tr>
+                      <td><?= $row->tgl ?></td>
+                      <td><?= $row->jumlah ?></td>
+                      <td><?= $row->bonus ?></td>
+                      <td><a href="detail_penggajian.php?id=$row->id_keuangan" class="btn btn-danger">Detail</a></td>
+                      </tr>
+                      <?php endwhile; ?>
+
                       </td>
                     </tr>
                   </tbody>
@@ -140,11 +153,19 @@
                   </tfoot>
                   <tbody>
                     <tr>
-                      <td>8 / 9 / 2020</td>
+                      <!-- <td>8 / 9 / 2020</td>
                       <td>2</td>
                       <td>Rp. 20.000</td>
-                      <td>
-                        <a href="#" class="btn btn-danger">Detail</a>
+                      <td> -->
+                      <?php while($row = $keluhan->fetch_object()): ?>
+                      <tr>
+                      <td><?= $row->tgl ?></td>
+                      <td><?= $row->id ?></td>
+                      <td><?= $row->denda ?></td>
+                      <td><a href="<?= "detail_keluhan.php?id=$row->id" ?>" class="btn btn-danger">Detail</a></td>
+                      </tr>
+                      <?php endwhile; ?>  
+                        
                       </td>
                     </tr>
                   </tbody>

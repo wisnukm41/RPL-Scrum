@@ -102,6 +102,7 @@
                         <a href="<?= "./ubah_pegawai.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
                       </td>
                     <?php endwhile; ?>
+                    
                   </tbody>
                 </table>
               </div>

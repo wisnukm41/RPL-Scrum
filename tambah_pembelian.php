@@ -1,6 +1,9 @@
 <?php 
-  // include './config/function.php';
-  // isNotLoggedIn();
+  include './config/function.php';
+  isNotLoggedIn();
+
+  $stok = getStok();
+  $supplier = getSupplier();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,20 +53,24 @@
               <a href="./Pembelian.php" class="btn btn-warning">Kembali</a>
             </div> -->
             <div class="card-body">
-            <form action="#" method="post">
+            <a href="pembelian_stok.php" class="btn btn-warning">Kembali</a>
+            <hr>
+            <form action="./action/create_pembelian.php" method="post">
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="bahan">Bahan Baku <sup>*</sup></label>
                         <select name="bahan" id="bahan" class="form-control">
-                          <option value="1">?</option>
-                          <option value="2">?</option>
+                          <?php while($row = $stok->fetch_object()): ?>
+                            <option value="<?= $row->id ?>"><?= $row->nama_stok ?></option>
+                          <?php endwhile; ?>
                         </select>
                     </div>
                     <div class="form-group col-6">
                         <label for="supplier">Supplier <sup>*</sup></label>
                         <select name="supplier" id="supplier" class="form-control">
-                          <option value="1">?</option>
-                          <option value="2">?</option>
+                        <?php while($row = $supplier->fetch_object()): ?>
+                            <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                          <?php endwhile; ?>
                         </select>
                     </div>
                     <div class="form-group col-3">
@@ -71,8 +78,8 @@
                         <input type="number" class="form-control" id='Jumlah' name="jumlah" required>
                     </div>
                     <div class="form-group col-6">
-                        <label for="Jumlah">Jumlah <sup>*</sup></label>
-                        <input type="number" class="form-control" id='Jumlah' name="jumlah" required>
+                        <label for="Jumlah">Harga <sup>*</sup></label>
+                        <input type="number" class="form-control" id='Jumlah' name="harga" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-secondary">Simpan</button>

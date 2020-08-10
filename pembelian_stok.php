@@ -1,3 +1,8 @@
+<?php
+    include './config/function.php';
+    isNotLoggedIn();
+    $data = getPembelianStok();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Pembelian Stok || Warung Soto</title>
+  <title>History Pembelian Stok || Warung Soto</title>
 
   <?php include './head-import.php' ?>
 </head>
@@ -51,7 +56,7 @@
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
               <h6 class="m-0 font-weight-bold text-secondary">Data Pembelian Stok</h6>
-              <a href="#" class="btn btn-primary">Tambah</a>
+              <a href="tambah_pembelian.php" class="btn btn-primary">Tambah</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -77,14 +82,16 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                  <?php while($row = $data->fetch_object()): ?>
                     <tr>
-                      <td>312312</td>
-                      <td>8 / 9 / 2020</td>
-                      <td>Daging</td>
-                      <td>PT Lama</td>
-                      <td>3</td>
-                      <td>Rp. 20.000</td>
+                      <td><?= $row->id ?></td>
+                      <td><?= viewDate($row->tgl) ?></td>
+                      <td><?= $row->nama_stok ?></td>
+                      <td><?= $row->nama ?></td>
+                      <td><?= $row->jumlah ?></td>
+                      <td>Rp. <?= number_format($row->harga) ?></td>
                     </tr>
+                  <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

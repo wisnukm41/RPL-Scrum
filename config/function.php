@@ -234,13 +234,20 @@
     $sql = "SELECT * from supplier where id='$id'";
     return $mysqli->query($sql);
   }
-
   function getPembelianStok()
   {
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
     $sql = "SELECT a.id,a.harga,a.tgl,a.jumlah,b.nama_stok,c.nama from detail_pembelian_stok as a LEFT JOIN stok_bahan_baku as b ON a.id_stok = b.id LEFT JOIN supplier as c ON a.id_supplier=c.id";
     return $mysqli->query($sql);
   }
+
+
+    function getDataKeuangan(){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from keuangan";
+    return $mysqli->query($sql);
+  }
+
 
   function viewDate($date){
     $date = explode('-',$date);

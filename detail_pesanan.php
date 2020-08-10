@@ -75,11 +75,11 @@
                 <table class="table table-bordered">
                     <tr>
                       <td>Kontak Pembeli</td>
-                      <td>123213123</td>
+                      <td><?= $data->kontak ?></td>
                     </tr>
                     <tr>
                       <td>Tanggal Beli</td>
-                      <td>20 / 08 / 2020</td>
+                      <td><?= viewDate($data->tgl) ?></td>
                     </tr>
                   </table>
                   <table class="table table-bordered">
@@ -91,22 +91,24 @@
                         <td>Sub Total</td>
                       </tr>
                     </thead>
+                    <tbody>
+                      <?php while($row=$detail->fetch_object()): ?>
+                      <tr>
+                        <td><?= $row->nama_soto ?></td>
+                        <td>Rp. <?= number_format($row->harga_soto) ?></td>
+                        <td>
+                          <?= $row->jumlah ?>
+                        </td>
+                        <td>Rp. <?= number_format($row->harga_soto*$row->jumlah) ?></td>
+                      </tr>
+                      <?php endwhile; ?>
+                    </tbody>
                     <tfoot>
                       <tr class="font-weight-bold">
                         <td colspan=3>Total</td>
-                        <td>Rp. 120.000</td>
+                        <td>Rp. <?= number_format($data->total_harga) ?></td>
                       </tr>
                     </tfoot>
-                    <tbody>
-                      <tr>
-                        <td>Soto Lamongan</td>
-                        <td>Rp. 30.000</td>
-                        <td>
-                          4
-                        </td>
-                        <td>Rp. 120.000</td>
-                      </tr>
-                    </tbody>
                   </table>
                 </div>
               </div>

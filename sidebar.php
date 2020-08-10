@@ -66,7 +66,7 @@
         </li>
       <hr class="sidebar-divider my-0 d-none d-md-block mb-3">
         <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="./profile.php">
         <i class="fa fa-cogs" aria-hidden="true"></i>
           <span>Profile</span></a>
         </li>

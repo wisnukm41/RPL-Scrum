@@ -1,3 +1,15 @@
+<?php
+    include './config/function.php';
+    isNotLoggedIn();
+    $data = getOneSupplier($_GET['id']);
+
+    
+    if($data->num_rows < 1){
+      header("Location:NotFound404.php");
+    }
+
+    $data = $data->fetch_object();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,22 +59,20 @@
               <a href="supplier.php" class="btn btn-warning">Kembali</a>
             </div>
             <div class="card-body">
-            <form action="./action/create_supplier.php" method="post">
+            <form action="./action/update_supplier.php" method="post">
+              <input type="hidden" name="id" value=<?= $data->id ?>>
                 <div class="row">
                   <div class="form-group col-12">
                       <label for="nama">Nama Supplier <sup>*</sup></label>
-                      <input type="text" class="form-control" id='nama' name="nama" required>
+                      <input type="text" class="form-control" id='nama' name="nama" required value=<?= $data->nama ?>>
                   </div>
-                  <div class="form-group col-6">
+                  <div class="form-group col-12">
                       <label for="jenis">Jenis <sup>*</sup></label>
-                      <select name="jenis" id="jenis" class="form-control">
-                        <option value="1">?</option>
-                        <option value="2">?</option>
-                      </select>
+                      <input type="text" class="form-control" id='jenis' name="jenis" required  value=<?= $data->jenis_supplier ?>>
                   </div>
                   <div class="form-group col-12">
                       <label for="kontak">Kontak <sup>*</sup></label>
-                      <input type="text" class="form-control" id='kontak' name="kontak" required>
+                      <input type="text" class="form-control" id='kontak' name="kontak" required  value=<?= $data->kontak ?>>
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>

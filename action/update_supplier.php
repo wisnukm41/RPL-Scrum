@@ -3,10 +3,10 @@ include '../config/function.php';
 
 $nama = $_POST['nama'];
 $kontak = $_POST['kontak'];
-$deskripsi = $_POST['deskripsi'];
+$jenis = $_POST['jenis'];
 $id = $_POST['id'];
 
-$query = "UPDATE supplier SET nama='$nama', kontak='$kontak', deskripsi='$deskripsi' WHERE id='$id'";
+$query = "UPDATE supplier SET nama='$nama', kontak='$kontak', jenis_supplier='$jenis' WHERE id='$id'";
 $mysqli->query($query);
 
 $_SESSION['message'] = 'Data Updated Successfully!';

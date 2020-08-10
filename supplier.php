@@ -1,3 +1,8 @@
+<?php
+    include './config/function.php';
+    isNotLoggedIn();
+    $data = getSupplier();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,15 +79,17 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                    <?php while($row = $data->fetch_object()): ?>
                     <tr>
-                      <td>S24</td>
-                      <td>PT Selamat</td>
-                      <td>Bahan Baku</td>
-                      <td>12312412</td>
+                      <td><?= $row->id ?></td>
+                      <td><?= $row->nama ?></td>
+                      <td><?= $row->jenis_supplier ?></td>
+                      <td><?= $row->kontak ?></td>
                       <td>
-                        <a href="#" class="btn btn-warning">Ubah</a>
+                        <a href="<?= "ubah_supplier.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
                       </td>
                     </tr>
+                    <?php endwhile ?>
                   </tbody>
                 </table>
               </div>

@@ -221,6 +221,20 @@
     return $mysqli->query($sql);
   }
 
+  function getSupplier()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from supplier";
+    return $mysqli->query($sql);
+  }
+
+  function getOneSupplier($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from supplier where id='$id'";
+    return $mysqli->query($sql);
+  }
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

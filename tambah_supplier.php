@@ -1,3 +1,7 @@
+<?php
+    include './config/function.php';
+    isNotLoggedIn();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,12 +57,9 @@
                       <label for="nama">Nama Supplier <sup>*</sup></label>
                       <input type="text" class="form-control" id='nama' name="nama" required>
                   </div>
-                  <div class="form-group col-6">
+                  <div class="form-group col-12">
                       <label for="jenis">Jenis <sup>*</sup></label>
-                      <select name="jenis" id="jenis" class="form-control">
-                        <option value="1">?</option>
-                        <option value="2">?</option>
-                      </select>
+                      <input type="text" class="form-control" id='jenis' name="jenis" required>
                   </div>
                   <div class="form-group col-12">
                       <label for="kontak">Kontak <sup>*</sup></label>

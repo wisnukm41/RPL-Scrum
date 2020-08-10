@@ -1,6 +1,14 @@
 <?php 
-  // include './config/function.php';
-  // isNotLoggedIn();
+  include './config/function.php';
+  isNotLoggedIn();
+
+  $data = getOneStok($_GET['id']);
+
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+
+  $data = $data->fetch_object();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,18 +62,19 @@
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="nama">Nama <sup>*</sup></label>
-                        <input type="text" class="form-control" id='nama' name="nama" required>
+                        <input type="text" class="form-control" id='nama' name="nama" required value=<?= $data->nama_stok ?>> 
                     </div>
                     <div class="form-group col-12">
                         <label for="jenis">Jenis <sup>*</sup></label>
                         <select name="jenis" id="jenis" class="form-control">
-                          <option value="1">?</option>
-                          <option value="2">?</option>
+                          <option <?= $data->jenis_stok === "Bahan Soto" ? "selected" : ""?>>Bahan Soto</option>
+                          <option <?= $data->jenis_stok === "Perkakas" ? "selected" : ""?>>Perkakas</option>
+                          <option <?= $data->jenis_stok === "Tambahan" ? "selected" : ""?>>Tambahan</option>
                         </select>
                     </div>
                     <div class="form-group col-12">
                         <label for="Jumlah">Jumlah <sup>*</sup></label>
-                        <input type="number" class="form-control" id='Jumlah' name="jumlah" required>
+                        <input type="number" class="form-control" id='Jumlah' name="jumlah" required value=<?= $data->jumlah ?>>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-secondary">Simpan</button>

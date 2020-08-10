@@ -1,6 +1,6 @@
 <?php 
-  // include './config/function.php';
-  // isNotLoggedIn();
+  include './config/function.php';
+  isNotLoggedIn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +50,7 @@
               <a href="./stok.php" class="btn btn-warning">Kembali</a>
             </div>
             <div class="card-body">
-            <form action="#" method="post">
+            <form action="./action/create_stok.php" method="post">
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="nama">Nama <sup>*</sup></label>
@@ -59,8 +59,9 @@
                     <div class="form-group col-12">
                         <label for="jenis">Jenis <sup>*</sup></label>
                         <select name="jenis" id="jenis" class="form-control">
-                          <option value="1">?</option>
-                          <option value="2">?</option>
+                          <option>Bahan Soto</option>
+                          <option>Perkakas</option>
+                          <option>Tambahan</option>
                         </select>
                     </div>
                     <div class="form-group col-12">

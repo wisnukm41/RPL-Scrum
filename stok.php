@@ -1,3 +1,10 @@
+<?php
+    include './config/function.php';
+    isNotLoggedIn();
+    $data = getStok();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,15 +82,17 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                    <?php while($row = $data->fetch_object()): ?>
                     <tr>
-                      <td>312312</td>
-                      <td>Daging</td>
-                      <td>Bahan Soto</td>
-                      <td>2</td>
+                      <td><?= $row->id ?></td>
+                      <td><?= $row->nama_stok ?></td>
+                      <td><?= $row->jenis_stok ?></td>
+                      <td><?= $row->jumlah ?></td>
                       <td>
-                        <a href="#" class="btn btn-danger">Ubah</a>
+                        <a href="<?= "ubah_stok.php?id=$row->id" ?>" class="btn btn-danger">Ubah</a>
                       </td>
                     </tr>
+                    <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

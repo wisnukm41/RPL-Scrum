@@ -193,6 +193,13 @@
     return $mysqli->query($sql);
   }
 
+  function getOneStok($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from stok_bahan_baku WHERE id='$id'";
+    return $mysqli->query($sql);
+  }
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

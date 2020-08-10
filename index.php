@@ -1,3 +1,8 @@
+<?php
+  include './config/function.php';
+  isNotLoggedIn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -4,7 +4,7 @@ include '../config/function.php';
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$query = "SELECT biodata_pegawai.*, karyawan.jabatan FROM biodata_pegawai as a LEFT JOIN karyawan as b ON a.id = b.id WHERE email='$email' AND password='$password'";
+$query = "SELECT biodata_pegawai.*, karyawan.jabatan FROM biodata_pegawai LEFT JOIN karyawan ON biodata_pegawai.id = karyawan.id WHERE email='$email' AND password='$password'";
 $result = $mysqli->query($query);
 
 if($result->num_rows != 0){
@@ -13,6 +13,7 @@ if($result->num_rows != 0){
   $_SESSION['nama'] = $row->nama;
   $_SESSION['jabatan'] = $row->jabatan;
   $_SESSION['loggedin'] = true;
+  die(var_dump($row->nama));
   header('location:../index.php');
 } else {
   $_SESSION['error'] = 'Incorrect Email or Password';

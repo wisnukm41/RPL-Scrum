@@ -1,13 +1,16 @@
 <?php 
-  // include './config/connection.php';
-  // include './config/function.php';
-  // isNotLoggedIn();
-  // $data = getDetailKeuangan($_GET['id']);
-  // $obat = getDetailPenjualanObat($_GET['id']);
+  include './config/function.php';
+  isNotLoggedIn();
+  $data = getOneMenu($_GET['id']);
 
-  // if($data->num_rows < 1){
-  //   header("Location:NotFound404.php");
-  // }
+  if($data->num_rows < 1){
+    header("Location:NotFound404.php");
+  }
+
+  $data = $data->fetch_object();
+
+  $detail = getDetailMenu($_GET['id']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,30 +58,28 @@
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
               <h6 class="m-0 font-weight-bold text-secondary">Detail Menu</h6>
-              <a href="index.php" class="btn btn-danger">Kembali</a>
+              <a href="menu.php" class="btn btn-danger">Kembali</a>
             </div>
             <div class="card-body">
               <h6 class="font-weight-bold">Detail Menu</h6>
               <table class="table table-bordered">
                 <tr>
                   <td>Nama </td>
-                  <td>Soto Lamongan</td>
+                  <td><?= $data->nama_soto ?></td>
                 </tr>
                 <tr>
                   <td>Harga</td>
-                  <td>Rp. 20.000</td>
+                  <td>Rp. <?= number_format($data->harga_soto) ?></td>
                 </tr>
               </table>
               <h6 class="font-weight-bold">Stok Yang Digunakan</h6>
               <table class="table table-bordered">
+              <?php while($row = $detail->fetch_object()): ?>
                 <tr>
-                  <td>Bumbu </td>
-                  <td class="bg-success text-white text-center">2</td>
+                  <td><?= $row->nama_stok ?> </td>
+                  <td class="text-center"><?=$row->jumlah?></td>
                 </tr>
-                <tr>
-                  <td>Daging</td>
-                  <td class="bg-danger text-white text-center">0</td>
-                </tr>
+              <?php endwhile; ?>
               </table>
             </div>
           </div>

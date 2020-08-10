@@ -1,5 +1,5 @@
 <?php
-  include './config/funtion.php';
+  include './config/function.php';
   isNotLoggedIn();
   $menu = getMenu();
 ?>
@@ -77,14 +77,16 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                    <?php while($row = $menu->fetch_object()): ?>
                     <tr>
-                      <td>Soto Lamongan</td>
-                      <td>Rp. 20.000</td>
+                      <td><?= $row->nama_soto ?></td>
+                      <td>Rp. <?= number_format($row->harga_soto) ?></td>
                       <td>
-                        <a href="#" class="btn btn-danger">Detail</a>
-                        <a href="#" class="btn btn-warning">Ubah</a>
+                        <a href="<?= "./detail_menu.php?id=$row->id" ?>" class="btn btn-danger">Detail</a>
+                        <a href="<?= "./ubah_menu.php?id=$row->id" ?>" class="btn btn-warning">Ubah</a>
                       </td>
                     </tr>
+                    <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>

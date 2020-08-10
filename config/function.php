@@ -124,6 +124,27 @@
   //   return $mysqli->query($sql);
   // }
 
+  function getMenu()
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from menu";
+    return $mysqli->query($sql);
+  }
+
+  function getOneMenu($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT * from menu where id='$id'";
+    return $mysqli->query($sql);
+  }
+
+  function getDetailMenu($id)
+  {
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT stok_bahan_baku.nama_stok,detail_menu_dan_stok.jumlah from detail_menu_dan_stok LEFT JOIN stok_bahan_baku ON stok_bahan_baku.id=detail_menu_dan_stok.id_stok where detail_menu_dan_stok.id_menu='$id'";
+    return $mysqli->query($sql);
+  }
+
   function viewDate($date){
     $date = explode('-',$date);
     return $date[2].' / '.$date[1].' / '.$date[0];

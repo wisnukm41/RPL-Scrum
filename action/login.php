@@ -1,17 +1,17 @@
 <?php
 include '../config/function.php';
 
-$username = $_POST['username'];
-$password = md5($_POST['password']);
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-$query = "SELECT * FROM apoteker WHERE username='$username' AND password='$password'";
+$query = "SELECT biodata_pegawai.*, karyawan.jabatan FROM biodata_pegawai as a LEFT JOIN karyawan as b ON a.id = b.id WHERE email='$email' AND password='$password'";
 $result = $mysqli->query($query);
 
 if($result->num_rows != 0){
   $row = mysqli_fetch_object($result);
   $_SESSION['id_user'] = $row->id;
-  $_SESSION['username'] = $row->username;
-  $_SESSION['level'] = $row->level;
+  $_SESSION['nama'] = $row->nama;
+  $_SESSION['jabatan'] = $row->jabatan;
   $_SESSION['loggedin'] = true;
   header('location:../index.php');
 } else {

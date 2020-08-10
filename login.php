@@ -62,7 +62,7 @@ isLoggedIn();
                   ?>
                   <form class="user" action='./action/login.php' method='POST'>
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" name='username' placeholder="Username" required>
+                      <input type="text" class="form-control form-control-user" name='email' placeholder="Email" required>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" name='password' placeholder="Password" required>

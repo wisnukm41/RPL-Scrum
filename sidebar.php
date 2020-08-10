@@ -56,6 +56,13 @@
           <span>Keuangan</span></a>
         </li>
       <hr class="sidebar-divider my-0 d-none d-md-block mb-3">
+        <li class="nav-item">
+        <a class="nav-link" href="#">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+          <span>Profile</span></a>
+        </li>
+      
+      <hr class="sidebar-divider my-0 d-none d-md-block mb-3">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

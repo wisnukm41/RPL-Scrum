@@ -1,7 +1,7 @@
 <?php
   session_start();
   
-  $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_basdat'); 
+  $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
 
   function isNotLoggedin(){
     // if(!isset($_SESSION['id_user'])) {
@@ -10,9 +10,9 @@
   }
   
   function isLoggedIn(){
-    // if(isset($_SESSION['id_user'])) {
-		// 	header('Location:./index.php');
-		// }
+    if(isset($_SESSION['id_user'])) {
+			header('Location:./index.php');
+		}
   }
 
   function getPenjualan(){

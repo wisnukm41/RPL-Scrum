@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php 
+  include './config/function.php';
+  isNotLoggedIn();
+?>
+
 <head>
 
   <meta charset="utf-8">
@@ -39,6 +44,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Pegawai</h1>
+
           </div>
           <?php if(isset($_SESSION['message'])): ?>
           <div class="alert alert-success">
@@ -51,6 +57,7 @@
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
               <h6 class="m-0 font-weight-bold text-secondary">Pegawai</h6>
+                <a href="./tambah_pegawai.php" class="btn btn-primary">Tambah Pegawai</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">

@@ -1,3 +1,9 @@
+<?php
+  include './config/funtion.php';
+  isNotLoggedIn();
+  $menu = getMenu();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

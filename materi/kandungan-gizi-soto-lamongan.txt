@@ -1,4 +1,0 @@
-kalori : 398  kkal
-Karbohidrat : 25,8   g
-Protein : 28,6  g
-Lemak :  20,6 g

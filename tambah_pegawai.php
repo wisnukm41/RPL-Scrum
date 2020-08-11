@@ -1,6 +1,6 @@
 <?php 
-  // include './config/function.php';
-  // isNotLoggedIn();
+  include './config/function.php';
+  isNotLoggedIn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,10 +72,11 @@
                         <input type="text" class="form-control" id='kontak' name="kontak" required>
                     </div>
                     <div class="form-group col-12">
-                        <label for="jk">Jabatan <sup>*</sup></label>
-                        <select name="jk" id="jk" class="form-control">
-                          <option value="1">?</option>
-                          <option value="2">?</option>
+                        <label for="jabatan">Jabatan <sup>*</sup></label>
+                        <select name="jabatan" id="jabatan" class="form-control">
+                          <option>Koki</option>
+                          <option>Pelayan</option>
+                          <option>Manager</option>
                         </select>
                     </div>
                 </div>

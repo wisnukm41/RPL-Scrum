@@ -80,7 +80,6 @@ CREATE TABLE `detail_penggajian` (
   `id_karyawan` varchar(255) NOT NULL,
   `id_keuangan` varchar(255) NOT NULL,
   `jumlah` int(3) NOT NULL,
-  `jenis` varchar(255) NOT NULL,
   `denda` decimal(10,0) NOT NULL,
   `bonus` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
@@ -128,7 +127,7 @@ DROP TABLE IF EXISTS `keluhan`;
 
 CREATE TABLE `keluhan` (
   `id` varchar(255) NOT NULL,
-  `id_karyawan` varchar(255) NOT NULL,
+  `id_karyawan` varchar(255) DEFAULT NULL,
   `tgl` date NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),

@@ -2,24 +2,13 @@
   include './config/function.php';
   isNotLoggedIn();
 
-  // $pegawai = getInfoPegawai($_GET['id']);
-  // // if($pegawai->num_rows < 1){
-  // //   header("Location:NotFound404.php");
-  // // }
+  $pegawai = getInfoPegawai($_GET['id']);
 
-  // $pegawai = $pegawai->fetch_object();
-
-  $id = getIdPegawai($_GET['id']);
-  $id = $id->fetch_object();
-  $pegawai = getInfoPegawai($id->id_biodata);
   $pegawai = $pegawai->fetch_object();
 
   $gaji = getGajiPersonal($_GET['id']);
   $keluhan = getKeluhanPersonal($_GET['id']);
 
-  $foto = "\"./img/pegawai/";
-  $foto .= $pegawai->foto;
-  $foto .= ".jpg\"";
 ?>
 
 <!DOCTYPE html>
@@ -68,13 +57,12 @@
           <div class="card shadow mb-4 border-left-secondary">
             <div class="card-header py-3 d-flex justify-content-between">
               <h6 class="m-0 font-weight-bold text-secondary">Detail Pegawai</h6>
-              <a href="index.php" class="btn btn-danger">Kembali</a>
+              <a href="pegawai.php" class="btn btn-danger">Kembali</a>
             </div>
             <div class="card-body">
               <h6 class="font-weight-bold">Detail Pegawai</h6>
               <table class="table table-bordered">
                 <tr>
-                  <td rowspan=5 class='photo_td'><img alt="photo" class='foto_karyawan' src= <?= $foto ?>></td>
                   <td>Nama : </td>
                   <td><?= $pegawai->nama ?></td>
                 </tr>
@@ -94,6 +82,10 @@
                   <td>Email</td>
                   <td><?= $pegawai->email ?></td>
                 </tr>
+                <tr>
+                  <td>Jabatan</td>
+                  <td><?= $pegawai->jabatan ?></td>
+                </tr>
               </table>
               <h6>History Gaji</h6>
               <div class="table-responsive">
@@ -101,17 +93,19 @@
                   <thead>
                     <tr>
                       <th>Tanggal</th>
-                      <th>Jumlah</th>
+                      <th>Gaji Awal</th>
                       <th>Bonus</th>
-                      <th>Aksi</th>
+                      <th>Denda</th>
+                      <th>Gaji Akhir</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>Tanggal</th>
-                      <th>Jumlah</th>
+                      <th>Gaji Awal</th>
                       <th>Bonus</th>
-                      <th>Aksi</th>
+                      <th>Denda</th>
+                      <th>Gaji Akhir</th>
                   </tfoot>
                   <tbody>
                       <!-- <td>8 / 9 / 2020</td>
@@ -121,9 +115,10 @@
                       <?php while($row = $gaji->fetch_object()): ?>
                       <tr>
                       <td><?= $row->tgl ?></td>
-                      <td><?= $row->jumlah ?></td>
-                      <td><?= $row->bonus ?></td>
-                      <td><a href="detail_penggajian.php?id=$row->id_keuangan" class="btn btn-danger">Detail</a></td>
+                      <td>Rp. <?= number_format( $row->jumlah) ?> </td>                
+                      <td>Rp. <?= number_format( $row->bonus) ?> </td>
+                      <td>Rp. <?= number_format( $row->denda) ?> </td>
+                      <td>Rp. <?= number_format( $row->jumlah - $row->denda + $row->bonus) ?> </td>  
                       </tr>
                       <?php endwhile; ?>
 
@@ -139,16 +134,12 @@
                   <thead>
                     <tr>
                       <th>Tanggal</th>
-                      <th>ID</th>
-                      <th>Denda</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>Tanggal</th>
-                      <th>ID</th>
-                      <th>Denda</th>
                       <th>Aksi</th>
                   </tfoot>
                   <tbody>
@@ -160,8 +151,6 @@
                       <?php while($row = $keluhan->fetch_object()): ?>
                       <tr>
                       <td><?= $row->tgl ?></td>
-                      <td><?= $row->id ?></td>
-                      <td><?= $row->denda ?></td>
                       <td><a href="<?= "detail_keluhan.php?id=$row->id" ?>" class="btn btn-danger">Detail</a></td>
                       </tr>
                       <?php endwhile; ?>  

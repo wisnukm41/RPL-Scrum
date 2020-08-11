@@ -262,19 +262,19 @@
 
   function getInfoPegawai($id){
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT * from biodata_pegawai where id='$id'";
+    $sql = "SELECT a.id,a.jabatan,b.nama,b.jenis_kelamin,b.kontak,b.email,b.alamat FROM karyawan as a LEFT JOIN biodata_pegawai as b ON a.id_biodata = b.id where a.id='$id'";
     return $mysqli->query($sql);
   }
 
   function getGajiPersonal($id){
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT * FROM (SELECT jumlah,bonus,id_keuangan FROM detail_penggajian WHERE id_karyawan = '$id') AS B NATURAL JOIN (SELECT tgl FROM keuangan  WHERE id=(SELECT id_keuangan FROM   detail_penggajian WHERE id_karyawan ='$id')) AS A";
+    $sql = "SELECT a.jumlah,a.denda,a.bonus,b.tgl FROM detail_penggajian as a LEFT JOIN keuangan as b on a.id_keuangan=b.id LEFT JOIN karyawan as c ON a.id_karyawan=c.id WHERE c.id='$id' ";
     return $mysqli->query($sql);
   }
 
   function getKeluhanPersonal($id){
     $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
-    $sql = "SELECT * FROM (SELECT denda FROM detail_penggajian WHERE id_karyawan='$id') AS A NATURAL JOIN (SELECT tgl,id FROM keluhan WHERE id_karyawan = '$id') AS B";
+    $sql = "SELECT a.* FROM keluhan as a LEFT JOIN karyawan as b ON a.id_karyawan=b.id WHERE b.id='$id'";
     return $mysqli->query($sql);
   }
 

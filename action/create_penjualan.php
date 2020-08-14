@@ -14,6 +14,27 @@ if(empty($qty)) {
   header('Location:../order_menu.php');
 };
 
+for ($i=0; $i < sizeof($id_menu); $i++) { 
+  $query = "SELECT * FROM detail_menu_dan_stok WHERE id_menu='$id_menu[$i]'";
+  $result = $mysqli->query($query);
+  
+  while ($row = $result->fetch_object()) {
+    $query = "SELECT jumlah FROM stok_bahan_baku WHERE id='$row->id_stok'";
+    $res = $mysqli->query($query)->fetch_object();
+    
+    if($res->jumlah - ($row->jumlah*$qty[$i]) < 0) {
+      $_SESSION['error'] = 'Failed To Order, Out of Order';
+      return header('Location:../order_menu.php');
+    }
+
+    $sisa = $row->jumlah*$qty[$i];
+
+    $query = "UPDATE stok_bahan_baku SET jumlah=jumlah-'$sisa' WHERE id='$row->id_stok'";
+    $mysqli->query($query);
+  }
+  
+}
+
 $query = "SELECT * FROM keuangan WHERE jenis='in' AND tgl='$tgl'";
 $result = $mysqli->query($query);
 

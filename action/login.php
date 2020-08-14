@@ -13,7 +13,6 @@ if($result->num_rows != 0){
   $_SESSION['nama'] = $row->nama;
   $_SESSION['jabatan'] = $row->jabatan;
   $_SESSION['loggedin'] = true;
-  die(var_dump($row->nama));
   header('location:../index.php');
 } else {
   $_SESSION['error'] = 'Incorrect Email or Password';

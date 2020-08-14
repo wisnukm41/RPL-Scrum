@@ -84,7 +84,7 @@
                     <div class="form-group col-12">
                         <label for="jabatan">Jabatan <sup>*</sup></label>
                         <select name="jabatan" id="jabatan" class="form-control">
-                          <option  <?= $data->jabatan == "Koki" ? "selected" : "" ?> >Koki</option>
+                          <option <?= $data->jabatan == "Koki" ? "selected" : "" ?> >Koki</option>
                           <option <?= $data->jabatan == "Pelayan" ? "selected" : "" ?>>Pelayan</option>
                           <option <?= $data->jabatan == "Manager" ? "selected" : "" ?>>Manager</option>
                         </select>

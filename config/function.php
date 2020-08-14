@@ -278,6 +278,12 @@
     return $mysqli->query($sql);
   }
 
+  function getMenuStok($id){
+    $mysqli = new mysqli('localhost', 'root', '', 'db_tugbes_rpl'); 
+    $sql = "SELECT MIN(a.jumlah) as stok FROM stok_bahan_baku as a INNER JOIN detail_menu_dan_stok as b WHERE b.id_menu='$id'";
+    return $mysqli->query($sql)->fetch_object()->stok;
+  }
+
 
   function viewDate($date){
     $date = explode('-',$date);

@@ -90,7 +90,10 @@
                           <input type="hidden" name="harga[]" value="<?= $row->harga_soto ?>">
                           <input type="hidden" name="id_menu[]" value="<?= $row->id ?>">
                           <input type="number" class="form-control text-center w-50 d-inline" name="qty[]" id="" value=0>
-                          <div class="d-inline ml-1 py-1 px-3 bg-success text-white">Ada</div>
+                          <?php 
+                            $stok = getMenuStok($row->id);
+                           ?>
+                            <div class="d-inline ml-1 py-1 px-3 <?= $stok > 0 ? "bg-success" : "bg-danger" ?> text-white"><?= $stok ?></div>
                         </td>
                       </tr>
                       <?php endwhile; ?>

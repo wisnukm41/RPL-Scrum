@@ -82,15 +82,6 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    <!-- <tr>
-                      <td>312312</td>
-                      <td>Yayat</td>
-                      <td>Laki - Laki</td>
-                      <td>Kasir</td>
-                      <td>
-                        <a href="#" class="btn btn-danger">Detail</a>
-                      </td>
-                    </tr> -->
 
                     <?php while($row = $karyawan->fetch_object()): ?>
                     <tr>

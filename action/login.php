@@ -2,7 +2,7 @@
 include '../config/function.php';
 
 $email = $_POST['email'];
-$password = $_POST['password'];
+$password = md5($_POST['password']);
 
 $query = "SELECT biodata_pegawai.*, karyawan.jabatan FROM biodata_pegawai LEFT JOIN karyawan ON biodata_pegawai.id = karyawan.id WHERE email='$email' AND password='$password'";
 $result = $mysqli->query($query);

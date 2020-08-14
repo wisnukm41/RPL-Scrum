@@ -7,10 +7,11 @@ $jk = $_POST['jk'];
 $kontak = $_POST['kontak'];
 $jabatan = $_POST['jabatan'];
 
+$pass = md5("123456");
 
 $idBio = uniqid();
 
-$query = "INSERT INTO biodata_pegawai(id,nama,jenis_kelamin,kontak,email,password) VALUES('$idBio','$nama','$jk','$kontak','$email','123456')";
+$query = "INSERT INTO biodata_pegawai(id,nama,jenis_kelamin,kontak,email,password) VALUES('$idBio','$nama','$jk','$kontak','$email','$pass')";
 $mysqli->query($query);
 
 $idKaryawan = uniqid();

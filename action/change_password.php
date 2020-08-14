@@ -1,9 +1,9 @@
 <?php
 include '../config/function.php';
 
-$old_pw = $_POST['old_pw'];
-$new_pw = $_POST['new_pw'];
-$con_pw = $_POST['con_pw'];
+$old_pw = md5($_POST['old_pw']);
+$new_pw = md5($_POST['new_pw']);
+$con_pw = md5($_POST['con_pw']);
 $id = $_SESSION['id_user'];
 
 if($con_pw !== $new_pw){
